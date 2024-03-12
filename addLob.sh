@@ -23,10 +23,12 @@ $(echo "$subscription_ids" | sed 's/\(.*\)/\1 = "\1"/')
 
 echo $new_app_entry
 
-# Define the path to the Terraform file
-# tf_file="path/to/locals.tf"
+tf_file_url="https://raw.githubusercontent.com/CloudiFyi-Solutions/terraform-playground/main/locals.tf"
 
+# Use curl to download the Terraform file
+curl -o locals.tf "$tf_file_url"
 # Search for the line number where the lob block starts
+
 # lob_start_line=$(grep -n 'lob = {' "$tf_file" | cut -d ":" -f 1)
 
 # Search for the line number where the lob block ends

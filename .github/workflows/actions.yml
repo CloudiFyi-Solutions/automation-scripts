@@ -30,9 +30,10 @@ jobs:
 
       - name: Run script
         run: |
+          
           app_name="${{ github.event.inputs.app_name }}"
           environments="${{ github.event.inputs.environments }}"
           regions="${{ github.event.inputs.regions }}"
           subscription_ids="${{ github.event.inputs.subscription_ids }}"
 
-          ./addlob.sh "$app_name" "$environments" "$regions" "$subscription_ids"
+          chmod +x $GITHUB_WORKSPACE/addLob.sh "$app_name" "$environments" "$regions" "$subscription_ids"
