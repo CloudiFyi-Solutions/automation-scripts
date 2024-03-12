@@ -1,0 +1,38 @@
+name: Add App to Terraform Locals
+
+on:
+  workflow_dispatch:
+    inputs:
+      app_name:
+        description: 'Name of the app'
+        required: true
+        default: 'new_app'
+      environments:
+        description: 'Environments (comma-separated)'
+        required: true
+        default: 'stage,uat,prod'
+      regions:
+        description: 'Regions (comma-separated)'
+        required: true
+        default: 'eastus,centralus'
+      subscription_ids:
+        description: 'Subscription IDs (comma-separated)'
+        required: true
+        default: '1234124,5345345,4564564'
+
+jobs:
+  update-locals:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run script
+        run: |
+          app_name="${{ github.event.inputs.app_name }}"
+          environments="${{ github.event.inputs.environments }}"
+          regions="${{ github.event.inputs.regions }}"
+          subscription_ids="${{ github.event.inputs.subscription_ids }}"
+
+          ./addlob.sh "$app_name" "$environments" "$regions" "$subscription_ids"
