@@ -29,10 +29,7 @@ tf_file_url="https://raw.githubusercontent.com/CloudiFyi-Solutions/terraform-pla
 curl -o locals.tf "$tf_file_url"
 # Search for the line number where the lob block starts
 
-# lob_start_line=$(grep -n 'lob = {' "$tf_file" | cut -d ":" -f 1)
+lob_end_line=$(awk '/lob = {/{flag=1;next} /}/ && flag {print NR; flag=0}' "locals.tf")
 
-# Search for the line number where the lob block ends
-# lob_end_line=$(grep -n '}' "$tf_file" | grep -A1 "^$lob_start_line" | tail -n1 | cut -d ":" -f 1)
 
-# Add the new app entry inside the lob block
-# sed -i "${lob_end_line}i$new_app_entry" "$tf_file"
+sed -i "${lob_end_line}i$new_app_entry" "locals.tf"
