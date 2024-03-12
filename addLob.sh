@@ -27,9 +27,7 @@ tf_file_url="https://raw.githubusercontent.com/CloudiFyi-Solutions/terraform-pla
 
 # Use curl to download the Terraform file
 curl -o locals.tf "$tf_file_url"
-# Search for the line number where the lob block starts
 
 lob_end_line=$(awk '/lob = {/{flag=1;next} /}/ && flag {print NR; flag=0}' "locals.tf")
 
-
-sed -i "${lob_end_line}i$new_app_entry" "locals.tf"
+echo $lob_end_line
